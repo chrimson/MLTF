@@ -1,7 +1,7 @@
 #!/bin/sh
 
 python3 -m venv tf
-source tf/bin/activate
+. tf/bin/activate
 
 pip install -U pip
 pip install -U tensorflow-cpu
