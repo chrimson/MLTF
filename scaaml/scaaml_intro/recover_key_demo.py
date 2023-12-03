@@ -3,10 +3,7 @@ import os
 import json
 import numpy as np
 from tqdm.auto import tqdm
-from collections import defaultdict
 from tensorflow.keras import metrics
-from tabulate import tabulate
-#import matplotlib.pyplot as plt
 from scaaml.aes import ap_preds_to_key_preds
 from scaaml.plot import plot_trace, plot_confusion_matrix
 from scaaml.utils import tf_cap_memory, from_categorical
