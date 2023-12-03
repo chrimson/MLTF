@@ -6,7 +6,7 @@ from tqdm.auto import tqdm
 from collections import defaultdict
 from tensorflow.keras import metrics
 from tabulate import tabulate
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from scaaml.aes import ap_preds_to_key_preds
 from scaaml.plot import plot_trace, plot_confusion_matrix
 from scaaml.utils import tf_cap_memory, from_categorical
@@ -27,26 +27,6 @@ available_models = get_models_by_attack_point(target_config)
 
 DATASET_GLOB = "datasets/%s/test/*" % target_config['algorithm']
 shard_paths  = list_shards(DATASET_GLOB, 256)
-
-min_traces = 0
-max_traces = 0
-cumulative_aa = 0
-for idx, val in enumerate(y):
-    cumulative_aa += val
-    if not min_traces and val > 0:
-        min_traces = idx + 1
-    if not max_traces and val == 100.0:
-        max_traces = idx + 1
-        break 
-​
-cumulative_aa = round( cumulative_aa / (idx + 1), 2) # divide by the number of steps
-​
-rows = [
-    ["min traces", min_traces, round(y[min_traces -1 ], 1)],
-    ["max traces", max_traces, round(y[max_traces - 1], 1)],
-    ["cumulative score", cumulative_aa, '-'] 
-]
-print(tabulate(rows, headers=['metric', 'num traces', '% of keys']))
 
 ATTACK_POINT = 'sub_bytes_out' # let's pick an attack point- Key is not a good target: it doesn't work for TinyAEs
 TARGET_SHARD = 42 # a shard == a different key. Pick the one you would like
